@@ -1,6 +1,5 @@
 require "csv"
 ary = CSV.read("telephonenumbers.csv")
-fullAry = []
 #for each broken phone #
 CSV.open("correctnumbers.csv","wb") do |csv|
   changeNum = ary.map do |i|
@@ -19,11 +18,11 @@ CSV.open("correctnumbers.csv","wb") do |csv|
     end
     #the 1- is not needed
     if newAry.length == 11
-    # adds into file
+      # adds into file
       csv << ["#{newAry[0]}-#{newAry[1]}#{newAry[2]}#{newAry[3]}-#{newAry[4]}#{newAry[5]}#{newAry[6]}-#{newAry[7]}#{newAry[8]}#{newAry[9]}#{newAry[10]}"]
-    #the 1- is needed
+      #the 1- is needed
     elsif newAry.length == 10
-    #adds into file
+      #adds into file
       csv << ["1-#{newAry[0]}#{newAry[1]}#{newAry[2]}-#{newAry[3]}#{newAry[4]}#{newAry[5]}-#{newAry[6]}#{newAry[7]}#{newAry[8]}#{newAry[9]}"]
     end
   end

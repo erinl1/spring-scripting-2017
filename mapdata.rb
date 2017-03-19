@@ -5,14 +5,14 @@ array = CSV.read("exampledata.csv")
 library = []
 #CSV.open("exampledata.csv", "wb") do |row|
 #data_array = array.map do |value|
-array[0].each do |key|
-  puts key.inspect
+array.each do |key|
+  puts key[0]
   array[1].each do |value|
   #ary.each do |key|
   #  puts value[0].inspect
-      puts value.inspect
+    #  puts value.inspect
     x = {}
-    x.store(key.to_sym, value)
-    #puts x.inspect
+    x.store(:hello, value)
+    #puts x[:hello]
   end
 end

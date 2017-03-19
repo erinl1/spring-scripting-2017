@@ -1,0 +1,283 @@
+<html>
+<head>
+<style>
+
+.energy {
+  background: #a3d0e4;
+}
+.player {
+  background: #d5bdd2;
+}
+#wrapper {
+  height: 700px;
+  width: 700px;
+  background: #f6f6f4;
+}
+
+.box {
+  width:70px;
+  height:70px;
+  border:1px solid white;
+  float: left;
+}
+@media only screen and (max-width:1000px) {
+  #wrapper {
+    height: 600px;
+    width: 600px;
+  }
+  .box {
+    width:60px;
+    height:60px;
+    border:1px solid white;
+    float: left;
+  }
+}
+@media only screen and (max-width:710px) {
+  #wrapper {
+    height: 500px;
+    width: 500px;
+  }
+  .box {
+    width:50px;
+    height:50px;
+    border:1px solid white;
+    float: left;
+  }
+}
+.block {
+  background: #1e1e1e;
+}
+.remove {
+  background: white;
+}
+.board {
+  float: left;
+}
+.text {
+  float: left;
+  font-family: 'Amatic SC';
+}
+</style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+</head>
+<body>
+  <div class = "container">
+    <div class = "row">
+      <center><div style="font-family: 'Pacifico', serif; font-size: 60px;">Complete the day</div>
+        <br>
+      </div>
+      <div class = "row">
+        <div style="font-family: 'Amatic SC', serif; font-size: 40px;">The percentage number is the amount of work you've done. The time limit is eight hours. Complete the assignment(reach 100%) before the day ends.</div>
+        <br>
+      </div></center>
+      <br>
+      <div class = "row">
+        <div class = "col-md-9">
+          <div class = "board">
+            <div id = "wrapper">
+            </div>
+          </div>
+        </div>
+        <div class = "col-md-3">
+          <div id = "scoreboard">
+            <div class = "text">
+              <div class = "h2"><h2 id = "percent"></h2></div>
+              <br>
+              <div class = "h2"><h2 id = "hours"></h2></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class = "writing">
+        <div id = "powerup"><br><div class = 'printEnergy' id = 'energyy'><h2></h2></div>
+      </div>
+    </div>
+  </div>
+</body>
+</body>
+<script>
+let work = 0;
+let timeLimit = 8.0;
+let percentage = 2;
+let hours = 0.2;
+function displayTime(){
+  $('#' + row + '-' + column).addClass('player');
+  $(".text").remove();
+  $("#scoreboard").append("<div class = 'text'><div class = 'h2'><h2 id = 'percent'></h2></div><br><div class = 'h2'><h2 id = 'hours'></h2></div></div>");
+  $("#percent").append(work + "%");
+  $("#hours").append(Math.round(timeLimit*10)/10 + " hours left");
+}
+$("#percent").append(work + "%");
+$("#hours").append(Math.round(timeLimit*10)/10 + " hours left");
+// creates gameboard
+let storeData = [];
+function energy(energyDescription) {
+  $('#' + row + '-' + column).removeClass('energy');
+  let powerup;
+  let energyType = Math.floor(Math.random() * (7)) + 1;
+  storeData.push(energyType);
+  let sentence = energyDescription[energyType].title + energyDescription[energyType].description;
+  $(".printEnergy").remove();
+  $("#powerup").append("<div class = 'printEnergy' id = 'energyy'><h2>"+ sentence +"</h2></div>");
+  console.log(energyType + energyDescription[energyType].title);
+
+}
+for(let i = 0; i < 10; i++){
+  $("#wrapper").append("<div class='row" + i + "'>");
+  for(let x = 0; x < 10; x++){
+    $("#wrapper").append("<div class = 'box' id='" + i + "-" + x + "'></div>")
+  }
+}
+
+//player's initial coordinates
+let column = Math.floor(Math.random() * (10)) + 0;
+let row = Math.floor(Math.random() * (10)) + 0;
+//random blocks
+for(i = 0; i <= 30; i++){
+  let rand = Math.floor(Math.random() * (10)) + 0;
+  let rand2 = Math.floor(Math.random() * (10)) + 0;
+  $("#" + rand + "-" + rand2).addClass('block');
+}
+//random energies
+for(i = 0; i <= 10; i++){
+  let rand = Math.floor(Math.random() * (10)) + 0;
+  let rand2 = Math.floor(Math.random() * (10)) + 0;
+  $("#" + rand + "-" + rand2).addClass('energy').removeClass('block');
+}
+//prevents energy and block on same square
+$('#' + row + '-' + column).addClass('player').removeClass('block');
+console.log('#' + row + '-' + column);
+console.log("MEMEMEMEMEMEMEMEMEMEMEME");
+let x = 0;
+//arrow functions
+while(timeLimit > 0 && work < 100){
+  document.onkeydown = function myFunction() {
+    switch (event.keyCode) {
+      //up key
+      case 38:
+      console.log("Up key is pressed" + column + row);
+      displayTime();
+      //checks if player is on top row
+      if(row != 0){
+        //collects energy and removes the player from previous position
+        $('#' + row + '-' + column).removeClass('player');
+        //moves player
+        row = row - 1;
+        $('#' + row + '-' + column).addClass("player");
+        if($('#' + row + '-' + column).hasClass('energy')){
+          energy(energyDescription);
+          break;
+        }
+        else if($('#' + row + '-' + column).hasClass('block')){
+          row = row + 1;
+          $('#' + row + '-' + column).addClass("player");
+          break;
+        }
+        else {
+          $('#' + row + '-' + column).addClass('player');
+          work = work + percentage;
+          timeLimit = timeLimit - hours;
+          //text();
+        }
+        break;
+      }
+      //down key
+      case 40:
+      console.log("Down key is pressed" + column + row);
+      displayTime();
+      //checks if player is on bottom row
+      if(row != 9){
+        //collects energy and removes the player from previous position
+        $('#' + row + '-' + column).removeClass('player');
+        row = row + 1;
+        $('#' + row + '-' + column).addClass("player");
+        if($('#' + row + '-' + column).hasClass('block')){
+          row = row - 1;
+          $('#' + row + '-' + column).addClass("player");
+          break;
+        }
+        else if($('#' + row + '-' + column).hasClass('energy')){
+          energy(energyDescription);
+          break;
+        }
+        else {
+          $('#' + row + '-' + column).addClass('player');
+          work = work + percentage;
+          timeLimit = timeLimit - hours;
+          //  text();
+        }
+        break;
+      }
+      //right key
+      case 39:
+      console.log("Right key is pressed" + column + row);
+      displayTime();
+      //checks if player is on last column
+      if(column != 9){
+        $('#' + row + '-' + column).removeClass('player');
+        column = column + 1;
+        $('#' + row + '-' + column).addClass("player");
+        if($('#' + row + '-' + column).hasClass('block')){
+          column = column - 1;
+          $('#' + row + '-' + column).addClass("player");
+          break;
+        }
+        else if($('#' + row + '-' + column).hasClass('energy')){
+          energy(energyDescription);
+          break;
+        }
+        else {
+
+          $('#' + row + '-' + column).addClass('player');
+          work = work + percentage;
+          timeLimit = timeLimit - hours;
+          //text();
+        }
+        break;
+      }
+      //left key
+      case 37:
+      console.log("Left key is pressed" + column + row);
+      displayTime();
+      //checks if player is in first column
+      if(column != 0){
+        $('#' + row + '-' + column).removeClass('player');
+        column = column - 1;
+        $('#' + row + '-' + column).addClass("player");
+        if($('#' + row + '-' + column).hasClass('block')){
+          column = column + 1;
+          $('#' + row + '-' + column).addClass("player");
+          break;
+        }
+        else if($('#' + row + '-' + column).hasClass('energy')){
+          energy(energyDescription);
+        }
+        else {
+          $('#' + row + '-' + column).addClass('player');
+          work = work + percentage;
+          timeLimit = timeLimit - hours;
+          //  text();
+        }
+        break;
+      }
+    }
+  }
+  if(storeData.length > 0){
+    let parameter = storeData.length-1
+    console.log("hello");
+    console.log(storeData);
+    while(x < energyDescription[parameter].space){
+      percentage = energyDescription[parameter].percent;
+      hours = energyDescription[parameter].time;
+      x = x + 1;
+      console.log(percentage + " " + hours);
+    }
+    if(x == energyDescription[parameter].space){
+      percentage = 2;
+      hours = 0.2;
+    }
+  }
+}
+
+</script>
+</html>

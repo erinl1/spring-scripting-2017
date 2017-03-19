@@ -1,0 +1,275 @@
+<html>
+<head>
+<style>
+
+.energy {
+  background: #a3d0e4;
+}
+.player {
+  background: #d5bdd2;
+}
+#wrapper {
+  height: 700px;
+  width: 700px;
+  background: #f6f6f4;
+}
+
+.box {
+  width:70px;
+  height:70px;
+  border:1px solid white;
+  float: left;
+}
+@media only screen and (max-width:1000px) {
+  #wrapper {
+    height: 600px;
+    width: 600px;
+  }
+  .box {
+    width:60px;
+    height:60px;
+    border:1px solid white;
+    float: left;
+  }
+}
+@media only screen and (max-width:710px) {
+  #wrapper {
+    height: 500px;
+    width: 500px;
+  }
+  .box {
+    width:50px;
+    height:50px;
+    border:1px solid white;
+    float: left;
+  }
+}
+.block {
+  background: #1e1e1e;
+}
+.remove {
+  background: white;
+}
+.board {
+  float: left;
+}
+.text {
+  float: right;
+  font-family: 'Amatic SC';
+}
+</style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+crossorigin="anonymous"></script>
+<link rel="stylesheet" type="text/css"
+href="https://fonts.googleapis.com/css?family=Pacifico">
+<link rel="stylesheet" type="text/css"
+href="https://fonts.googleapis.com/css?family=Amatic+SC">
+</head>
+<body>
+  <div class = "container">
+    <div class = "row">
+      <center><div style="font-family: 'Pacifico', serif; font-size: 60px;">Complete the day</div>
+        <br>
+      </div>
+      <div class = "row">
+        <div style="font-family: 'Amatic SC', serif; font-size: 40px;">The percentage number is the amount of work you've done. The time limit is eight hours. Complete the assignment(reach 100%) before the day ends.</div>
+        <br>
+      </div></center>
+      <br>
+      <div class = "row">
+
+          <div class = "board">
+            <div id = "wrapper">
+            </div>
+        </div>
+
+          <div id = "scoreboard">
+            <div class = "text">
+              <div class = "h2"><h2 id = "percent"></h2></div>
+              <br>
+              <div class = "h2"><h2 id = "hours"></h2></div>
+            </div>
+          </div>
+      </div>
+      <div class = "writing">
+        <div id = "powerup"><br><div class = 'printEnergy' id = 'energyy'><h2></h2></div>
+      </div>
+    </div>
+  </div>
+</body>
+</body>
+<script>
+
+let y = 0;
+let z = 8.0;
+let percentage = 100/15;
+let hours = 0.2;
+setInterval(function(){
+  $('#' + row + '-' + column).addClass('player');
+  $(".text").remove();
+  $("body").append("<div class = 'text'><div class = 'h2'><h2 id = 'percent'></h2></div><br><div class = 'h2'><h2 id = 'hours'></h2></div></div>");
+  $("#percent").append(y + "%");
+  $("#hours").append(Math.round(z*10)/10 + " hours left");
+}, 100);
+$("#percent").append(y + "%");
+$("#hours").append(Math.round(z*10)/10 + " hours left");
+// creates gameboard
+let storeData = [];
+function energy(energyDescription) {
+  $('#' + row + '-' + column).removeClass('energy');
+  let powerup;
+  let energyType = Math.floor(Math.random() * (7)) + 1;
+  storeData.push(energyType);
+  let sentence = energyDescription[energyType].title + energyDescription[energyType].description;
+  $(".printEnergy").remove();
+  $("#powerup").append("<div class = 'printEnergy' id = 'energyy'><h2>"+ sentence +"</h2></div>");
+  console.log(energyType + energyDescription[energyType].title);
+}
+for(let i = 0; i < 10; i++){
+  $("#wrapper").append("<div class='row" + i + "'>");
+  for(let x = 0; x < 10; x++){
+    $("#wrapper").append("<div class = 'box' id='" + i + "-" + x + "'></div>")
+  }
+}
+//player's initial coordinates
+let column = Math.floor(Math.random() * (10)) + 0;
+let row = Math.floor(Math.random() * (10)) + 0;
+//random blocks
+for(i = 0; i <= 30; i++){
+  let rand = Math.floor(Math.random() * (10)) + 0;
+  let rand2 = Math.floor(Math.random() * (10)) + 0;
+  $("#" + rand + "-" + rand2).addClass('block');
+}
+//random energies
+for(i = 0; i <= 10; i++){
+  let rand = Math.floor(Math.random() * (10)) + 0;
+  let rand2 = Math.floor(Math.random() * (10)) + 0;
+  $("#" + rand + "-" + rand2).addClass('energy').removeClass('block');
+}
+//prevents energy and block on same square
+$('#' + row + '-' + column).addClass('player').removeClass('block');
+console.log('#' + row + '-' + column);
+
+let x = 0;
+//arrow functions
+document.onkeydown = function myFunction() {
+  switch (event.keyCode) {
+    //up key
+    case 38:
+    console.log("Up key is pressed" + column + row);
+    //checks if player is on top row
+    if(row != 0){
+      //collects energy and removes the player from previous position
+      $('#' + row + '-' + column).removeClass('player');
+      //moves player
+      row = row - 1;
+      $('#' + row + '-' + column).addClass("player");
+      if($('#' + row + '-' + column).hasClass('energy')){
+        energy(energyDescription);
+        break;
+      }
+      else if($('#' + row + '-' + column).hasClass('block')){
+        row = row + 1;
+        $('#' + row + '-' + column).addClass("player");
+        break;
+      }
+      else {
+        $('#' + row + '-' + column).addClass('player');
+        y = y + percentage;
+
+        //text();
+      }
+      break;
+    }
+    //down key
+    case 40:
+    console.log("Down key is pressed" + column + row);
+    //checks if player is on bottom row
+    if(row != 9){
+      //collects energy and removes the player from previous position
+      $('#' + row + '-' + column).removeClass('player');
+      row = row + 1;
+      $('#' + row + '-' + column).addClass("player");
+      if($('#' + row + '-' + column).hasClass('block')){
+        row = row - 1;
+        $('#' + row + '-' + column).addClass("player");
+        break;
+      }
+      else if($('#' + row + '-' + column).hasClass('energy')){
+        energy(energyDescription);
+        break;
+      }
+      else {
+        $('#' + row + '-' + column).addClass('player');
+        y = y + percentage;
+
+        //  text();
+      }
+      break;
+    }
+    //right key
+    case 39:
+    console.log("Right key is pressed" + column + row);
+    //checks if player is on last column
+    if(column != 9){
+      $('#' + row + '-' + column).removeClass('player');
+      column = column + 1;
+      $('#' + row + '-' + column).addClass("player");
+      if($('#' + row + '-' + column).hasClass('block')){
+        column = column - 1;
+        $('#' + row + '-' + column).addClass("player");
+        break;
+      }
+      else if($('#' + row + '-' + column).hasClass('energy')){
+        energy(energyDescription);
+        break;
+      }
+      else {
+        $('#' + row + '-' + column).addClass('player');
+        y = y + percentage;
+
+        //text();
+      }
+      break;
+    }
+    //left key
+    case 37:
+    console.log("Left key is pressed" + column + row);
+    //checks if player is in first column
+    if(column != 0){
+      $('#' + row + '-' + column).removeClass('player');
+      column = column - 1;
+      $('#' + row + '-' + column).addClass("player");
+      if($('#' + row + '-' + column).hasClass('block')){
+        column = column + 1;
+        $('#' + row + '-' + column).addClass("player");
+        break;
+      }
+      else if($('#' + row + '-' + column).hasClass('energy')){
+        energy(energyDescription);
+      }
+      else {
+        $('#' + row + '-' + column).addClass('player');
+        y = y + percentage;
+
+        //  text();
+      }
+      break;
+    }
+  }
+  let parameter = storeData.length-1
+
+}
+//hello ricky
+</script>
+</html>

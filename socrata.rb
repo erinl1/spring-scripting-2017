@@ -1,5 +1,4 @@
 require 'soda/client'
-client = SODA::Client.new({:domain => "soda.demo.socrata.com",
-                           :username => "demouser@example.com",
-                           :password => "my_demo_user_password",
-                           :app_token => "CGxadgoQlgQSev4zyUh5aR5J3"})
+client = SODA::Client.new({domain: "data.cityofnewyork.us", app_token: "w4imPv49yhvBlkOUukeVAUZeD"})
+response = client.get("feuq-due4")
+puts response.first.keys

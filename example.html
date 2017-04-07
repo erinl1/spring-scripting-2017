@@ -1,0 +1,244 @@
+<html>
+<head>
+<style>
+.energy {
+  float: left;
+}
+.player {
+  background: #d5bdd2;
+}
+#wrapper {
+  height: 700px;
+  width: 700px;
+  background: #f6f6f4;
+}
+.box {
+  width:70px;
+  height:70px;
+  border:1px solid white;
+  float: left;
+}
+@media only screen and (max-width:1000px) {
+  #wrapper {
+    height: 600px;
+    width: 600px;
+  }
+  .box {
+    width:60px;
+    height:60px;
+    border:1px solid white;
+    float: left;
+  }
+}
+@media only screen and (max-width:710px) {
+  #wrapper {
+    height: 500px;
+    width: 500px;
+  }
+  .box {
+    width:50px;
+    height:50px;
+    border:1px solid white;
+    float: left;
+  }
+}
+.block {
+  background: #1e1e1e;
+}
+.remove {
+  background: white;
+}
+.board {
+  float: left;
+}
+.text {
+  float: left;
+  font-family: 'Amatic SC';
+}
+</style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+crossorigin="anonymous"></script>
+<link rel="stylesheet" type="text/css"
+href="https://fonts.googleapis.com/css?family=Pacifico">
+<link rel="stylesheet" type="text/css"
+href="https://fonts.googleapis.com/css?family=Amatic+SC">
+
+</head>
+<body>
+  <div class = "container">
+    <div class = "row">
+      <center><div style="font-family: 'Pacifico', serif; font-size: 60px;">Complete the day</div>
+        <br>
+      </div>
+      <div class = "row">
+        <div style="font-family: 'Amatic SC', serif; font-size: 40px;">The percentage number is the amount of work you've done. The time limit is eight hours. Complete the assignment(reach 100%) before the day ends.</div>
+        <br>
+      </div></center>
+      <br>
+      <div class = "row">
+        <div class = "col-md-9">
+          <div class = "board">
+            <div id = "wrapper" style = "background-color:">
+
+            </div>
+          </div>
+        </div>
+        <div class = "col-md-3">
+          <div id = "scoreboard">
+            <h2>your color: </h2>
+            <div class = "box player"></div>
+            <br>
+            <div class = "text">
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>
+</body>
+<script>
+var x = 0;
+for(let i = 0; i < 10; i++){
+  $("#wrapper").append("<div class='row" + i + "'>");
+  for(let x = 0; x < 10; x++){
+    $("#wrapper").append("<div class = 'box' id='" + i + "-" + x + "'></div>")
+  }
+}
+let column = Math.floor(Math.random() * (10)) + 0;
+let row = Math.floor(Math.random() * (10)) + 0;
+//random blocks
+for(let i = 0; i <= 25; i++){
+  let rand = Math.floor(Math.random() * (10)) + 0;
+  let rand2 = Math.floor(Math.random() * (10)) + 0;
+  $("#" + rand + "-" + rand2).addClass('block');
+}
+$('#' + row + '-' + column).addClass('player').removeClass('block');
+//random energies
+var array = []
+
+for(let i = 0; i <= 10; i++){
+  let rgb = "rgb(" + Math.floor(Math.random() * (255)) + ',' + Math.floor(Math.random() * (255)) + ','  + Math.floor(Math.random() * (255)) + ")"
+  array.push(rgb);
+  }
+console.log(array);
+for(let i = 0; i <= 10; i++){
+  let rand = Math.floor(Math.random() * (10)) + 0;
+  let rand2 = Math.floor(Math.random() * (10)) + 0;
+  $("#" + rand + "-" + rand2).attr("style", `background: ${array[i]}`).addClass('energy');
+}
+$("#scoreboard").append("<br><br><div><h2>color you need: </h2><div class = 'box' style = 'background-color:" + array[Math.floor(Math.random() * (10)) + 0] +"'</div></div>")
+
+
+document.onkeydown = function myFunction() {
+  switch (event.keyCode) {
+    //up key
+    case 38:
+    console.log("Up key is pressed" + column + row);
+    //checks if player is on top row
+    if(row != 0){
+      //collects energy and removes the player from previous position
+      $('#' + row + '-' + column).removeClass('player');
+      //moves player
+      row = row - 1;
+      $('#' + row + '-' + column).addClass("player");
+      if($('#' + row + '-' + column).hasClass('energy')){
+
+        break;
+      }
+      else if($('#' + row + '-' + column).hasClass('block')){
+        row = row + 1;
+        $('#' + row + '-' + column).addClass("player");
+        break;
+      }
+      else {
+        $('#' + row + '-' + column).addClass('player');
+
+        //text();
+      }
+      break;
+    }
+    //down key
+    case 40:
+    console.log("Down key is pressed" + column + row);
+    //checks if player is on bottom row
+    if(row != 9){
+      //collects energy and removes the player from previous position
+      $('#' + row + '-' + column).removeClass('player');
+      row = row + 1;
+      $('#' + row + '-' + column).addClass("player");
+      if($('#' + row + '-' + column).hasClass('block')){
+        row = row - 1;
+        $('#' + row + '-' + column).addClass("player");
+        break;
+      }
+      else if($('#' + row + '-' + column).hasClass('energy')){
+
+        break;
+      }
+      else {
+        $('#' + row + '-' + column).addClass('player');
+
+        //  text();
+      }
+      break;
+    }
+    //right key
+    case 39:
+    console.log("Right key is pressed" + column + row);
+    //checks if player is on last column
+    if(column != 9){
+      $('#' + row + '-' + column).removeClass('player');
+      column = column + 1;
+      $('#' + row + '-' + column).addClass("player");
+      if($('#' + row + '-' + column).hasClass('block')){
+        column = column - 1;
+        $('#' + row + '-' + column).addClass("player");
+        break;
+      }
+      else if($('#' + row + '-' + column).hasClass('energy')){
+
+        break;
+      }
+      else {
+
+        $('#' + row + '-' + column).addClass('player');
+
+        //text();
+      }
+      break;
+    }
+    //left key
+    case 37:
+    console.log("Left key is pressed" + column + row);
+    //checks if player is in first column
+    if(column != 0){
+      $('#' + row + '-' + column).removeClass('player');
+      column = column - 1;
+      $('#' + row + '-' + column).addClass("player");
+      if($('#' + row + '-' + column).hasClass('block')){
+        column = column + 1;
+        $('#' + row + '-' + column).addClass("player");
+        break;
+      }
+      else if($('#' + row + '-' + column).hasClass('energy')){
+      }
+      else {
+        $('#' + row + '-' + column).addClass('player');
+
+        //  text();
+      }
+      break;
+    }
+  }
+}
+</script>
+</html>

@@ -103,142 +103,161 @@ href="https://fonts.googleapis.com/css?family=Amatic+SC">
           </div>
         </div>
       </div>
-  </div>
-</body>
-<script>
-var x = 0;
-for(let i = 0; i < 10; i++){
-  $("#wrapper").append("<div class='row" + i + "'>");
-  for(let x = 0; x < 10; x++){
-    $("#wrapper").append("<div class = 'box' id='" + i + "-" + x + "'></div>")
-  }
-}
-let column = Math.floor(Math.random() * (10)) + 0;
-let row = Math.floor(Math.random() * (10)) + 0;
-//random blocks
-for(let i = 0; i <= 25; i++){
-  let rand = Math.floor(Math.random() * (10)) + 0;
-  let rand2 = Math.floor(Math.random() * (10)) + 0;
-  $("#" + rand + "-" + rand2).addClass('block');
-}
-$('#' + row + '-' + column).addClass('player').removeClass('block');
-//random energies
-var array = []
-
-for(let i = 0; i <= 10; i++){
-  let rgb = "rgb(" + Math.floor(Math.random() * (255)) + ',' + Math.floor(Math.random() * (255)) + ','  + Math.floor(Math.random() * (255)) + ")"
-  array.push(rgb);
-  }
-console.log(array);
-for(let i = 0; i <= 10; i++){
-  let rand = Math.floor(Math.random() * (10)) + 0;
-  let rand2 = Math.floor(Math.random() * (10)) + 0;
-  $("#" + rand + "-" + rand2).attr("style", `background: ${array[i]}`).addClass('energy');
-}
-$("#scoreboard").append("<br><br><div><h2>color you need: </h2><div class = 'box' style = 'background-color:" + array[Math.floor(Math.random() * (10)) + 0] +"'</div></div>")
-
-
-document.onkeydown = function myFunction() {
-  switch (event.keyCode) {
-    //up key
-    case 38:
-    console.log("Up key is pressed" + column + row);
-    //checks if player is on top row
-    if(row != 0){
-      //collects energy and removes the player from previous position
-      $('#' + row + '-' + column).removeClass('player');
-      //moves player
-      row = row - 1;
-      $('#' + row + '-' + column).addClass("player");
-      if($('#' + row + '-' + column).hasClass('energy')){
-
-        break;
-      }
-      else if($('#' + row + '-' + column).hasClass('block')){
-        row = row + 1;
-        $('#' + row + '-' + column).addClass("player");
-        break;
-      }
-      else {
-        $('#' + row + '-' + column).addClass('player');
-
-        //text();
-      }
-      break;
+    </div>
+  </body>
+  <script>
+  var x = 0;
+  for(let i = 0; i < 10; i++){
+    $("#wrapper").append("<div class='row" + i + "'>");
+    for(let x = 0; x < 10; x++){
+      $("#wrapper").append("<div class = 'box' id='" + i + "-" + x + "'></div>")
     }
-    //down key
-    case 40:
-    console.log("Down key is pressed" + column + row);
-    //checks if player is on bottom row
-    if(row != 9){
-      //collects energy and removes the player from previous position
-      $('#' + row + '-' + column).removeClass('player');
-      row = row + 1;
-      $('#' + row + '-' + column).addClass("player");
-      if($('#' + row + '-' + column).hasClass('block')){
+  }
+  let column = 0;
+  let row = 0;
+  //random blocks
+  for(let i = 0; i <= 25; i++){
+    let rand = Math.floor(Math.random() * (10)) + 0;
+    let rand2 = Math.floor(Math.random() * (10)) + 0;
+    $("#" + rand + "-" + rand2).addClass('block');
+  }
+  //random energies
+  var array = []
+
+  for(let i = 0; i <= 11; i++){
+    let rgb = "rgb(" + Math.floor(Math.random() * (255)) + ',' + Math.floor(Math.random() * (255)) + ','  + Math.floor(Math.random() * (255)) + ")"
+    array.push(rgb);
+  }
+  console.log(array);
+  for(let i = 0; i <= 11; i++){
+    let rand = Math.floor(Math.random() * (10)) + 0;
+    let rand2 = Math.floor(Math.random() * (10)) + 0;
+    $("#" + rand + "-" + rand2).attr("style", `background: ${array[i]}`).addClass('energy').removeClass('block');
+    console.log(rand + " " + rand2);
+  }
+  $('#' + row + '-' + column).addClass('player').removeClass('block');
+  arrayNum = 0
+  $("#scoreboard").append("<br><br><div><h2>color you need: </h2><div class = 'box colorNeed' style = 'background-color:" + array[arrayNum] +"'</div></div>");
+  function energyCollect (arrayNum, array, row, column){
+  console.log(arrayNum);
+  arrayNum = arrayNum + 1;
+  console.log(arrayNum);
+  $(".box.colorNeed").attr("style", `background: ${array[arrayNum]}`);
+  $('#' + row + '-' + column).removeClass('energy').attr("style", `background: black`);
+  }
+  document.onkeydown = function myFunction() {
+    switch (event.keyCode) {
+      //up key
+      case 38:
+      //checks if player is on top row
+      if(row != 0){
+        //collects energy and removes the player from previous position
+        $('#' + row + '-' + column).removeClass('player');
+        //moves player
         row = row - 1;
         $('#' + row + '-' + column).addClass("player");
-        break;
-      }
-      else if($('#' + row + '-' + column).hasClass('energy')){
+        if($('#' + row + '-' + column).hasClass('block')){
+          row = row + 1;
+          $('#' + row + '-' + column).addClass("player");
+          break;
+        }
+        else if($('#' + row + '-' + column).hasClass('energy')){
+          if($('#' + row + '-' + column).css("background-color").replace(/\s+/g, '') == array[arrayNum]){
+            energyCollect(arrayNum, array, row, column);
+          }
+          break;
+        }
+        else {
+          $('#' + row + '-' + column).addClass('player');
 
+        }
         break;
       }
       else {
-        $('#' + row + '-' + column).addClass('player');
-
-        //  text();
+        break;
       }
-      break;
-    }
-    //right key
-    case 39:
-    console.log("Right key is pressed" + column + row);
-    //checks if player is on last column
-    if(column != 9){
-      $('#' + row + '-' + column).removeClass('player');
-      column = column + 1;
-      $('#' + row + '-' + column).addClass("player");
-      if($('#' + row + '-' + column).hasClass('block')){
-        column = column - 1;
+      //down key
+      case 40:
+      //checks if player is on bottom row
+      if(row != 9){
+        //collects energy and removes the player from previous position
+        $('#' + row + '-' + column).removeClass('player');
+        row = row + 1;
         $('#' + row + '-' + column).addClass("player");
-        break;
-      }
-      else if($('#' + row + '-' + column).hasClass('energy')){
-
+        if($('#' + row + '-' + column).hasClass('block')){
+          row = row - 1;
+          $('#' + row + '-' + column).addClass("player");
+          break;
+        }
+        else if($('#' + row + '-' + column).hasClass('energy')){
+          if($('#' + row + '-' + column).css("background-color").replace(/\s+/g, '') == array[arrayNum]){
+            energyCollect(arrayNum, array, row, column);
+          }
+          break;
+        }
+        else {
+          $('#' + row + '-' + column).addClass('player');
+        }
         break;
       }
       else {
-
-        $('#' + row + '-' + column).addClass('player');
-
-        //text();
+        break;
       }
-      break;
-    }
-    //left key
-    case 37:
-    console.log("Left key is pressed" + column + row);
-    //checks if player is in first column
-    if(column != 0){
-      $('#' + row + '-' + column).removeClass('player');
-      column = column - 1;
-      $('#' + row + '-' + column).addClass("player");
-      if($('#' + row + '-' + column).hasClass('block')){
+      //right key
+      case 39:
+      //checks if player is on last column
+      if(column != 9){
+        $('#' + row + '-' + column).removeClass('player');
         column = column + 1;
         $('#' + row + '-' + column).addClass("player");
+        if($('#' + row + '-' + column).hasClass('block')){
+          column = column - 1;
+          $('#' + row + '-' + column).addClass("player");
+          break;
+        }
+        else if($('#' + row + '-' + column).hasClass('energy')){
+          if($('#' + row + '-' + column).css("background-color").replace(/\s+/g, '') == array[arrayNum]){
+            energyCollect(arrayNum, array, row, column);
+          }
+          break;
+        }
+        else {
+
+          $('#' + row + '-' + column).addClass('player');
+
+          //text();
+        }
         break;
       }
-      else if($('#' + row + '-' + column).hasClass('energy')){
+      else {
+        break;
+      }
+      //left key
+      case 37:
+      //checks if player is in first column
+      if(column != 0){
+        $('#' + row + '-' + column).removeClass('player');
+        column = column - 1;
+        $('#' + row + '-' + column).addClass("player");
+        if($('#' + row + '-' + column).hasClass('block')){
+          column = column + 1;
+          $('#' + row + '-' + column).addClass("player");
+          break;
+        }
+        else if($('#' + row + '-' + column).hasClass('energy')){
+          if($('#' + row + '-' + column).css("background-color").replace(/\s+/g, '') == array[arrayNum]){
+            energyCollect(arrayNum, array, row, column);
+          }
+        }
+        else {
+          $('#' + row + '-' + column).addClass('player');
+        }
+        break;
       }
       else {
-        $('#' + row + '-' + column).addClass('player');
-
-        //  text();
+        break;
       }
-      break;
     }
   }
-}
-</script>
-</html>
+  </script>
+  </html>

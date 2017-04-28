@@ -52,10 +52,12 @@
   float: left;
 }
 .text {
-  float: left;
-  font-family: 'Amatic SC';
+  float: ;
+  font-family: 'Cutive Mono';
 }
 </style>
+<script src="dist/sweetalert.min.js"></script>
+<link rel="stylesheet" type="text/css" href="dist/sweetalert.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
 integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
@@ -69,7 +71,7 @@ integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/
 integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
 crossorigin="anonymous"></script>
 <link rel="stylesheet" type="text/css"
-href="https://fonts.googleapis.com/css?family=Pacifico">
+href="https://fonts.googleapis.com/css?family=Cutive+Mono">
 <link rel="stylesheet" type="text/css"
 href="https://fonts.googleapis.com/css?family=Amatic+SC">
 
@@ -77,13 +79,13 @@ href="https://fonts.googleapis.com/css?family=Amatic+SC">
 <body>
   <div class = "container">
     <div class = "row">
-      <center><div style="font-family: 'Pacifico', serif; font-size: 60px;">Complete the day</div>
+      <div class = 'text'>Complete the day</div>
         <br>
       </div>
       <div class = "row">
-        <div style="font-family: 'Amatic SC', serif; font-size: 40px;">The percentage number is the amount of work you've done. The time limit is eight hours. Complete the assignment(reach 100%) before the day ends.</div>
+        <div class = 'text'>The percentage number is the amount of work you've done. The time limit is eight hours. Complete the assignment(reach 100%) before the day ends.</div>
         <br>
-      </div></center>
+      </div>
       <br>
       <div class = "row">
         <div class = "col-md-9">
@@ -93,7 +95,7 @@ href="https://fonts.googleapis.com/css?family=Amatic+SC">
             </div>
           </div>
         </div>
-        <div class = "col-md-3">
+        <div class = "col-md-3 text">
           <div id = "scoreboard">
             <h2>your color: </h2>
             <div class = "box player"></div>

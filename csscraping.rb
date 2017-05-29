@@ -21,5 +21,5 @@ urban_hash["text"] = text_array
 urban_hash["img"] = img_array
 json = urban_hash.to_json
 File.open("urban.json", "a+") do |file|
-  file.write(json)
+  file.write("urbanoutfitters = #{json}")
 end

@@ -1,7 +1,6 @@
 <html>
 <head>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-  <script src ="https://jsonplaceholder.typicode.com/users"></script>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
   integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
@@ -13,26 +12,53 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
   integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
   crossorigin="anonymous"></script>
+  <link rel="stylesheet" type="text/css"
+  href="https://fonts.googleapis.com/css?family=Inconsolata">
   <style>
+  body {
+    font-family: 'Inconsolata';
+  }
   </style>
 </head>
-<div class = "row">
-</div>
-<div class = "row">
+<body>
   <div class = "container">
-    <table class = "table">
-      <tr>
-        <th> Sunday </th>
-        <th> Monday </th>
-        <th> Tuesday </th>
-        <th> Wednesday </th>
-        <th> Thursday </th>
-        <th> Friday </th>
-        <th> Saturday </th>
-      </tr>
-    </table>
-  </div>
+    <center><div class = "row">
+      <h1>Create a Calendar</h1><br>
+      <div class="dropdown">
+  <button class="btn dropdown-toggle" type="button" data-toggle="dropdown">Month
+  <span class="caret"></span></button>
+  <ul class="dropdown-menu">
+    <li>january</li>
+    <li>february</li>
+    <li>march</li>
+    <li>april</li>
+    <li>may</li>
+    <li>june</li>
+    <li>july</li>
+    <li>august</li>
+    <li>september</li>
+    <li>october</li>
+    <li>november</li>
+    <li>december</li>
+  </ul>
 </div>
+    </div>
+    <div class = "row">
+      <table class = "table">
+        <tr class = "weekname">
+        </tr>
+      </table>
+    </div></center>
+  </div>
+</body>
 <script>
+var weekday = ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"];
+for(var i = 0; i <=weekday.length-1; i++){
+$(".weekname").append("<th class = '" + weekday[i] + "'>" + weekday[i] + "</th>");
+}
+for(var i = 1; i <= 5; i++){
+  $(".table").append("<tr class = 'row" + i + "'></tr>");
+}
+console.log
 </script>
 </html>

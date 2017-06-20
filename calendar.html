@@ -62,16 +62,20 @@
       </div>
     </body>
     <script>
+    let monthAry = ["january": 0, "february": 1, "march":2, "april":3, "may":4, "june":5, "july":6, "august":7, "september":8, "october":9, "november":10, "december":11]
     function clickButton() {
     var weekday = ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"];
 
     for(var i = 0; i <=weekday.length-1; i++){
-      $(".weekname").append("<th class = '" + weekday[i] + "'>" + weekday[i] + "</th>");
+      $(".weekname").append("<th class = '" + weekday[i] + " " + i + "'>" + weekday[i] + "</th>");
     }
     for(var i = 1; i <= 5; i++){
       $(".table").append("<tr class = 'row" + i + "'></tr>");
     }
   }
-    console.log
+    let month = $("#month").val();
+    let year = $("#year").val();
+    let date = new Date(year, month, 1);
+    console.log(monthAry[month]);
     </script>
     </html>

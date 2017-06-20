@@ -1,0 +1,81 @@
+<html>
+<head>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+  integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+  <!-- Latest compiled and minified JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+  integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+  crossorigin="anonymous"></script>
+  <link rel="stylesheet" type="text/css"
+  href="https://fonts.googleapis.com/css?family=Inconsolata">
+  <style>
+  body {
+    font-family: 'Inconsolata';
+  }
+  .btn {
+    display:inline-block;
+    vertical-align: top;
+    float: left;
+    width: 140px;
+    height: 40px;
+  }
+
+  </style>
+</head>
+<body>
+  <div class = "container">
+    <div class = "row">
+      <center><h1>Create a Calendar</h1><br></center>
+          <h3>select a month:</h3>
+          <select class="btn btn-default" id="month">
+            <option>january</option>
+            <option>february</option>
+            <option>march</option>
+            <option>april</option>
+            <option>may</option>
+            <option>june</option>
+            <option>july</option>
+            <option>august</option>
+            <option>september</option>
+            <option>october</option>
+            <option>november</option>
+            <option>december</option>
+    </select>
+
+        <select class="btn btn-default" id="year" text ="year">
+          <option>2017</option>
+          <option>2018</option>
+          <option>2019</option>
+          <option>2020</option>
+        </select>
+          <div class = "btn btn-default submit" onclick=clickButton()>submit</div>
+
+        </div>
+        <center><div class = "row">
+          <table class = "table">
+            <tr class = "weekname">
+            </tr>
+          </table>
+        </div></center>
+      </div>
+    </body>
+    <script>
+    let monthAry = ["january": 0, "february": 1, "march":2, "april":3, "may":4, "june":5, "july":6, "august":7, "september":8, "october":9, "november":10, "december":11]
+    function clickButton() {
+    var weekday = ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"];
+
+    for(var i = 0; i <=weekday.length-1; i++){
+      $(".weekname").append("<th class = '" + weekday[i] + " " + i + "'>" + weekday[i] + "</th>");
+    }
+    for(var i = 1; i <= 5; i++){
+      $(".table").append("<tr class = 'row" + i + "'></tr>");
+    }
+  }
+    let month = $("#month").val();
+    let year = $("#year").val();
+    let date = new Date(year, month, 1);
+    console.log(monthAry[month]);
+    </script>
+    </html>

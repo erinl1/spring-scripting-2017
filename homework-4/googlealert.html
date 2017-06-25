@@ -1,0 +1,49 @@
+<html>
+<head>
+  <title>GOOGLE ALERTS</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+  integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+  <!-- Optional theme -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+  integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+  <!-- Latest compiled and minified JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+  integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+  crossorigin="anonymous"></script>
+  <link rel="stylesheet" type="text/css"
+  href="https://fonts.googleapis.com/css?family=Inconsolata">
+  <script src = "galert.json"></script>
+<style>
+body {
+  font-family: 'Inconsolata';
+  background-color: #D6EAF8;
+}
+.box {
+  border: 5px solid #D6EAF8;
+  background-color: #FFFAF8  ;
+}
+h1 {
+  color: #C98BBF  ;
+  font-size: 60px;
+}
+</style>
+</head>
+<div class = "container">
+  <h1>Google Alerts View</h1>
+  <br>
+  <div class = "row">
+  </div>
+  <p>gsd</p>
+</div>
+<script>
+for(let i = 0; i<= google_json.length; i++){
+  $(".row").append("<div class = 'box'><a style = 'font-size: 30px' href = '" + google_json[i]["link"] +
+  "'>" + google_json[i]["title"] + "</a><br><h3>" + google_json[i]["blurb"] +
+  "</h3></div>");
+
+}
+</script>
+</html>

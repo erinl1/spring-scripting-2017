@@ -9,7 +9,6 @@ link = "https://www.google.com/alerts/preview?params=%5Bnull%2C%5Bnull%2Cnull%2C
 doc = Nokogiri::HTML(open(link))
 block = doc.css('li[class ="result"]')
 title = block.css("a.result_title_link")
-title = block.css("a.result_title_link")
 blurb = block.css("span[class = 'snippet']")
 web_array = []
 0.upto(block.length-1) do |x|

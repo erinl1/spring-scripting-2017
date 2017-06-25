@@ -29,5 +29,5 @@ File.open("galert.json", "a+") do |file|
   #write in json
   file.write("google_json = #{web_array.to_json}")
 end
-#open up browser 
-Launchy::Browser.run("/Users/erinlee/Desktop/nano-hacker-academy/spring-scripting-2017/googlealert.html")
+#open up browser
+Launchy::Browser.run("/Users/erinlee/Desktop/nano-hacker-academy/spring-scripting-2017/homework-4/googlealert.html")

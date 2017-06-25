@@ -2,7 +2,6 @@ require "csv"
 require "json"
 sub_csv = CSV.read("subway.csv")
 example_data = CSV.read("library.csv")
-example = [[["gogsok":"sgfd"],["hello":"sdgg"]]]
 opendata = []
 lib_keys = []
 library = []
@@ -22,8 +21,6 @@ my_array = []
   end
   library.push(my_obj)
 end
-
-
 sub_keys = []
 subway = []
 sub_csv[0].each do |key|
